@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Page</title>
+  </head>
+  <body>
+    <h1>Admin Page</h1>
+    <form id="userDetailForm" enctype="multipart/form-data">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required /><br /><br />
+      <label for="profilePic">Profile Picture:</label>
+      <input
+        type="file"
+        id="profilePic"
+        name="profilePic"
+        accept="image/*"
+        required
+      /><br /><br />
+      <button type="submit">Upload</button>
+    </form>
+    <script>
+      document.getElementById("userDetailForm").onsubmit = function (event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        fetch("/admin", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.text())
+          .then((data) => {
+            alert(data);
+          });
+      };
+    </script>
+    <a href="/dashboard.html">Back to Dashboard</a>
+  </body>
+</html>
